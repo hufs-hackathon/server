@@ -76,6 +76,27 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public Boolean scrapBoard(Long userId, Long boardId) {
+        User user = getUser(userId);
+
+        Optional<ScrapedBoard> optionalScrapedBoard
+                = this.scrapedBoardRepository.findByUserAndBoardId(user, boardId);
+
+        if (optionalScrapedBoard.isEmpty()) {
+            this.scrapedBoardRepository.save(
+                    ScrapedBoard.builder()
+                                .user(user)
+                                .boardId(boardId)
+                                .build()
+            );
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     @Transactional(readOnly = true)
     public List<MyPageScrapedResponseDto> getMyScrapResult(Long userId) {
 
