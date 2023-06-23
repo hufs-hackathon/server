@@ -6,6 +6,9 @@ import com.hachathon.farmmate.api.domain.repository.ActivityBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.response.ActivityBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
+import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
+import com.hachathon.farmmate.exception.CustomException;
+import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +25,7 @@ public class ActivityBoardService {
     private final UserRepository userRepository;
 
     public List<ActivityBoardsResponseDto> getAllActivityBoards(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND) );
         String univ = user.getUniv();
         List<ActivityBoardsResponseDto> activityBoardsResponseDto = new ArrayList<>();
         List<ActivityBoard> activityBoards = activityBoardRepository.findAllByUnivOrderByCreatedDateDesc(univ);
@@ -40,5 +43,15 @@ public class ActivityBoardService {
 
 
         return activityBoardsResponseDto;
+    }
+
+    public SpecificActivityBoardResponseDto getSpecificActivityBoard(Long boardId) {
+        ActivityBoard activityBoard = activityBoardRepository.findById(boardId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POSTING));
+        return SpecificActivityBoardResponseDto.builder()
+                .title(activityBoard.getTitle())
+                .content(activityBoard.getContent())
+                .imageUrl(activityBoard.getImageUrl())
+                .tag(activityBoard.getTag())
+                .build();
     }
 }
