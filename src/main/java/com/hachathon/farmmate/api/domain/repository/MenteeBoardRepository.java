@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MenteeBoardRepository extends JpaRepository<MenteeBoard, Long> {
 
-    @Query("SELECT m FROM MenteeBoard m INNER JOIN User u ON u.univ = :univ AND m.category = :category ORDER BY m.createdDate DESC")
+    @Query("SELECT DISTINCT m FROM MenteeBoard m INNER JOIN User u ON u.univ = :univ AND m.category = :category ORDER BY m.createdDate DESC")
     List<MenteeBoard> findAllByUnivAndCategoryOrderByCreatedDateDesc(@Param("univ") String univ, @Param("category") String category);
 
     List<MenteeBoard> findAllByUser(User user);
