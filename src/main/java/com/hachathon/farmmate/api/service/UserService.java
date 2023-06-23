@@ -107,7 +107,8 @@ public class UserService {
 
         if (user.getRole() == 0) {
             for (ScrapedBoard board : scrapedBoards) {
-                MenteeBoard mentorBoard = this.menteeBoardRepository.findById(board.getBoardId()).get();
+                MenteeBoard mentorBoard = this.menteeBoardRepository.findById(board.getBoardId())
+                                                                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POSTING));
                 result.add(
                         MyPageScrapedResponseDto
                                 .builder()
@@ -122,7 +123,8 @@ public class UserService {
             }
         } else {
             for (ScrapedBoard board : scrapedBoards) {
-                MentorBoard menteeBoard = this.mentorBoardRepository.findById(board.getId()).get();
+                MentorBoard menteeBoard = this.mentorBoardRepository.findById(board.getId())
+                                                                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POSTING));
                 result.add(
                         MyPageScrapedResponseDto
                                 .builder()

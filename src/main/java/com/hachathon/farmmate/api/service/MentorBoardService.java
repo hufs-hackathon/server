@@ -61,7 +61,8 @@ public class MentorBoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetMentorBoardResponseDto> getMentorBoardList(Long userId, String category) {
+    public List<GetMentorBoardResponseDto>
+    getMentorBoardList(Long userId, String category) {
 
         User user = this.userRepository.findById(userId)
                                        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));

@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getMyPost(userId));
     }
 
-    @Operation(summary = "[스크랩 저장]")
+    @Operation(summary = "[스크랩 조회]")
     @GetMapping("/mypage/board/scrap")
     public ResponseEntity<List<MyPageScrapedResponseDto>> getMyScrapResult(
             @RequestParam(value = "userId", required = false) Long userId
