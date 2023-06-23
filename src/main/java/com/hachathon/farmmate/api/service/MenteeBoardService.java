@@ -64,8 +64,11 @@ public class MenteeBoardService {
                     .menteeId(menteeBoard.getUser().getId())
                     .title(menteeBoard.getTitle())
                     .nickname(menteeBoard.getUser().getNickname())
-                    .imageUrl(menteeBoard.getUser().g)
+                    .imageUrl(menteeBoard.getUser().getImageUrl())
+                    .major(menteeBoard.getUser().getMajor())
                     .build();
+            dto.add(menteeBoardsResponseDto);
         }
+        return dto;
     }
-    }
+}

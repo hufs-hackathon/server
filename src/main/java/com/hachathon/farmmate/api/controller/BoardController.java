@@ -4,6 +4,9 @@ import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
 import com.hachathon.farmmate.api.dto.response.MenteeBoardsResponseDto;
+import com.hachathon.farmmate.api.dto.response.GetMentorBoardDetailResponseDto;
+import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
+import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -55,10 +59,35 @@ public class BoardController {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
     }
 
+
+    @GetMapping("/board")
+    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
+        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
+    }
+
+    @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
+    @GetMapping("/mentor/all")
+    public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+            @NotBlank @RequestParam(name = "category") String category
+    ) {
+        return new ResponseEntity<>(
+                this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
+
+    }
+
+    @Operation(summary = "[멘토 게시글 상세 조회 컨트롤러]")
+    @GetMapping("/mentor/{boardId}")
+    public ResponseEntity<GetMentorBoardDetailResponseDto> getMentorBoardDetail(
+            @PathVariable(value = "boardId") Long boardId
+    ) {
+        return new ResponseEntity<>(
+                this.mentorBoardService.getMentorBoardDetail(boardId), HttpStatus.OK);
+    }
+
     @GetMapping("/mentee/all")
     public ResponseEntity<List<MenteeBoardsResponseDto>> getAllMenteeBoards(
             @RequestParam(value = "userId") Long userId,
             @RequestParam(value = "category") String category) {
-        return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId,category));
+        return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId, category));
     }
 }

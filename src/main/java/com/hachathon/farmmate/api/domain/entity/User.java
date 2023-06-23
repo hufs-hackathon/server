@@ -31,6 +31,9 @@ public class User extends BaseTimeEntity {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "major", nullable = false)
     private String major;
 
@@ -51,11 +54,11 @@ public class User extends BaseTimeEntity {
 
     public static User ofUser(JoinRequestDto joinRequestDto) {
         return User.builder()
-                .email(joinRequestDto.getEmail())
-                .nickname(joinRequestDto.getNickname())
-                .major(joinRequestDto.getMajor())
-                .univ(joinRequestDto.getUniv())
-                .role(joinRequestDto.getRole())
-                .build();
+                   .email(joinRequestDto.getEmail())
+                   .nickname(joinRequestDto.getNickname())
+                   .major(joinRequestDto.getMajor())
+                   .univ(joinRequestDto.getUniv())
+                   .role(joinRequestDto.getRole())
+                   .build();
     }
 }
