@@ -64,6 +64,7 @@ public class MentorBoardService {
                                          .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public GetMentorBoardDetailResponseDto getMentorBoardDetail(Long boardId) {
         MentorBoard mentorBoard = this.mentorBoardRepository.findById(boardId)
                                                             .orElseThrow(() -> new CustomException(ErrorCode.MENTOR_BOARD_NOT_FOUND));
