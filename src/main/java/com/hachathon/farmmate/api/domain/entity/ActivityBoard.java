@@ -36,6 +36,9 @@ public class ActivityBoard extends BaseTimeEntity {
     @Column(name = "tag")
     private String tag;
 
+    @Column(name = "univ")
+    private String univ;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
