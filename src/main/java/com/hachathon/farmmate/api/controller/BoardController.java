@@ -49,6 +49,7 @@ public class BoardController {
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "[활동 게시글 전체 조회 컨트롤러]")
     @GetMapping("/board/all")
     public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
@@ -63,10 +64,11 @@ public class BoardController {
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
     public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+            @NotBlank @RequestParam(name = "userId") Long userId,
             @NotBlank @RequestParam(name = "category") String category
     ) {
         return new ResponseEntity<>(
-                this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
+                this.mentorBoardService.getMentorBoardList(userId, category), HttpStatus.OK);
 
     }
 
