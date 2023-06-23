@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Getter
@@ -43,14 +41,6 @@ public class User extends BaseTimeEntity {
     @Column(name = "role", nullable = false)
     private Integer role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<ActivityBoard> activityBoard = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<MentorBoard> mentorBoard = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<MenteeBoard> menteeBoard = new ArrayList<>();
 
     public static User ofUser(JoinRequestDto joinRequestDto) {
         return User.builder().imageUrl(joinRequestDto.getImageUrl())
