@@ -1,5 +1,6 @@
 package com.hachathon.farmmate.api.domain.entity;
 
+import com.hachathon.farmmate.api.dto.response.FaqDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,4 +31,12 @@ public class Faq {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentor_id")
     private MentorBoard mentorBoard;
+
+    public static Faq toEntity(FaqDto dto, MentorBoard mentorBoard) {
+        return Faq.builder()
+                  .question(dto.getQuestion())
+                  .answer(dto.getAnswer())
+                  .mentorBoard(mentorBoard)
+                  .build();
+    }
 }

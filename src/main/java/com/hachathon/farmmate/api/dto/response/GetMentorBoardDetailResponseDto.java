@@ -15,7 +15,7 @@ public class GetMentorBoardDetailResponseDto {
 
     private String nickname;
 
-    private String content;
+    private String introduce;
 
     private String major;
 
@@ -25,6 +25,6 @@ public class GetMentorBoardDetailResponseDto {
 
     private String category;
 
-    private List<FaqResponseDto> faqList;
+    private List<FaqDto> faqList;
 
 }

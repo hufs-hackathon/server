@@ -33,13 +33,12 @@ public class BoardController {
 
     @Operation(summary = "[멘토 게시글 저장 컨트롤러]")
     @PostMapping("/mentor")
-    public ResponseEntity<Void> registerMentorBoard(
+    public ResponseEntity<Long> registerMentorBoard(
             @RequestParam(value = "userId") Long userId,
-            @Valid @RequestPart RegisterMentorBoardRequestDto request,
-            @RequestPart("s3Images") List<MultipartFile> s3Images
+            @Valid @RequestPart RegisterMentorBoardRequestDto request
     ) {
-        this.mentorBoardService.registerMentorBoard(userId, request, s3Images);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(
+                this.mentorBoardService.registerMentorBoard(userId, request), HttpStatus.CREATED);
     }
 
     @Operation(summary = "[멘티 게시글 저장 컨트롤러]")

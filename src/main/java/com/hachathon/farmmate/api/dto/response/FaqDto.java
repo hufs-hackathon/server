@@ -8,14 +8,14 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FaqResponseDto {
+public class FaqDto {
 
     private String question;
 
     private String answer;
 
-    public static FaqResponseDto from(Faq faq) {
-        return FaqResponseDto
+    public static FaqDto from(Faq faq) {
+        return FaqDto
                 .builder()
                 .question(faq.getQuestion())
                 .answer(faq.getAnswer())
