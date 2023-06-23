@@ -53,7 +53,7 @@ public class User extends BaseTimeEntity {
     private List<MenteeBoard> menteeBoard = new ArrayList<>();
 
     public static User ofUser(JoinRequestDto joinRequestDto) {
-        return User.builder()
+        return User.builder().imageUrl(joinRequestDto.getImageUrl())
                    .email(joinRequestDto.getEmail())
                    .nickname(joinRequestDto.getNickname())
                    .major(joinRequestDto.getMajor())

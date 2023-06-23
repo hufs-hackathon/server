@@ -3,6 +3,7 @@ package com.hachathon.farmmate.api.controller;
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
+import com.hachathon.farmmate.api.dto.response.MenteeBoardsResponseDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardDetailResponseDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
@@ -57,6 +58,7 @@ public class BoardController {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
     }
 
+
     @GetMapping("/board")
     public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
         return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
@@ -79,5 +81,12 @@ public class BoardController {
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.getMentorBoardDetail(boardId), HttpStatus.OK);
+    }
+
+    @GetMapping("/mentee/all")
+    public ResponseEntity<List<MenteeBoardsResponseDto>> getAllMenteeBoards(
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "category") String category) {
+        return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId, category));
     }
 }

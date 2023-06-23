@@ -13,4 +13,5 @@ public class JoinRequestDto {
     private final String major;
     private final String univ;
     private final Integer role;
+    private final String imageUrl;
 }

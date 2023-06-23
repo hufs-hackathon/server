@@ -5,13 +5,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
-public class ActivityBoardResponseDto {
-    private Long boardId;
+@Getter
+public class MenteeBoardResponseDto {
+    private List<String> imageUrlList;
     private String title;
-    private String imageUrl;
-    private String tag;
+    private String content;
+    private String category;
 }
