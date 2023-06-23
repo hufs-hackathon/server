@@ -33,6 +33,7 @@ public class GetMentorBoardResponseDto {
 
     public static GetMentorBoardResponseDto from(MenteeBoard menteeBoard) {
         return GetMentorBoardResponseDto.builder()
+                                        .boardId(menteeBoard.getId())
                                         .title(menteeBoard.getTitle())
                                         .nickname(menteeBoard.getUser().getNickname())
                                         .major(menteeBoard.getUser().getMajor())
