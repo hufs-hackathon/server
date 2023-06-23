@@ -34,7 +34,7 @@ public class ActivityBoardService {
                 .forEach(key -> {
                     List<ActivityBoardResponseDto> collect = group.get(key).stream()
                             .map(a -> ActivityBoardResponseDto.builder()
-                                    .BoardId(a.getId()).title(a.getTitle()).imageUrl(a.getImageUrl()).tag(a.getTag()).build()).collect(Collectors.toList());
+                                    .boardId(a.getId()).title(a.getTitle()).imageUrl(a.getImageUrl()).tag(a.getTag()).build()).collect(Collectors.toList());
                     activityBoardsResponseDto.add(ActivityBoardsResponseDto.builder().category(key).activityBoardResponseDtoList(collect).build());
                 });
 

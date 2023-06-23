@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
-public class ActivityBoardResponseDto {
-    private Long boardId;
-    private String title;
-    private String imageUrl;
-    private String tag;
+@Getter
+public class UserBoardResponseDto {
+    private String nickname;
+    private String major;
+    private String email;
 }

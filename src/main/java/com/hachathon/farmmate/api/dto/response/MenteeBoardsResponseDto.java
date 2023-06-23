@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
-public class ActivityBoardResponseDto {
-    private Long boardId;
+@Getter
+public class MenteeBoardsResponseDto {
+    private Long menteeId;
+    private Integer role;
     private String title;
+    private String nickname;
+    private String major;
     private String imageUrl;
-    private String tag;
 }

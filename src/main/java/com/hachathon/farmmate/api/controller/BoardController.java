@@ -3,6 +3,7 @@ package com.hachathon.farmmate.api.controller;
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
+import com.hachathon.farmmate.api.dto.response.MenteeBoardsResponseDto;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
@@ -52,5 +53,12 @@ public class BoardController {
     @GetMapping("/board/all")
     public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
+    }
+
+    @GetMapping("/mentee/all")
+    public ResponseEntity<List<MenteeBoardsResponseDto>> getAllMenteeBoards(
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "category") String category) {
+        return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId,category));
     }
 }

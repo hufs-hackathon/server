@@ -7,6 +7,7 @@ import com.hachathon.farmmate.api.domain.repository.MenteeBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.MenteeImageRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
+import com.hachathon.farmmate.api.dto.response.MenteeBoardsResponseDto;
 import com.hachathon.farmmate.exception.CustomException;
 import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,4 +52,20 @@ public class MenteeBoardService {
 
         return menteeBoard.getId();
     }
-}
+
+    public List<MenteeBoardsResponseDto> getAllMenteeBoards(Long userId, String category) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+        String univ = user.getUniv();
+        List<MenteeBoard> menteeBoards = menteeBoardRepository.findAllByUnivAndCategoryOrderByCreatedDateDesc(univ, category);
+        List<MenteeBoardsResponseDto> dto = new ArrayList<>();
+        for(MenteeBoard menteeBoard : menteeBoards) {
+            MenteeBoardsResponseDto menteeBoardsResponseDto = MenteeBoardsResponseDto.builder()
+                    .role(1)
+                    .menteeId(menteeBoard.getUser().getId())
+                    .title(menteeBoard.getTitle())
+                    .nickname(menteeBoard.getUser().getNickname())
+                    .imageUrl(menteeBoard.getUser().g)
+                    .build();
+        }
+    }
+    }
