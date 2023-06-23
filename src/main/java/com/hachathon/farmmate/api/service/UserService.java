@@ -9,6 +9,7 @@ import com.hachathon.farmmate.api.domain.repository.MentorBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.ScrapedBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.JoinRequestDto;
+import com.hachathon.farmmate.api.dto.request.LoginRequestDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.MyPageScrapedResponseDto;
 import com.hachathon.farmmate.api.dto.response.MypageResponseDto;
@@ -30,12 +31,23 @@ public class UserService {
     private final MentorBoardRepository mentorBoardRepository;
     private final MenteeBoardRepository menteeBoardRepository;
     private final ScrapedBoardRepository scrapedBoardRepository;
+  
+    @Transactional
+    public Long login(LoginRequestDto loginRequestDto) {
+        Optional<User> userCheck = userRepository.findByEmail(loginRequestDto.getEmail());
+        if (!userCheck.isEmpty()) {
+            return userCheck.get().getId();
+        } else {
+            throw new CustomException(ErrorCode.NECESSARY_JOIN);
+        }
+    }
 
     @Transactional
-    public String join(JoinRequestDto joinRequestDto) {
-        userRepository.save(User.ofUser(joinRequestDto));
-        return "회원가입 되었습니다.";
-    }
+    public Long join(JoinRequestDto joinRequestDto) {
+        User user = userRepository.save(User.ofUser(joinRequestDto));
+      
+        return user.getId();
+
 
     public MypageResponseDto mypage(Long userId) {
         User user = getUser(userId);

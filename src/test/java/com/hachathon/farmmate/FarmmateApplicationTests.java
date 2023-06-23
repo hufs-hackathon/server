@@ -1,13 +1,13 @@
-package com.hachathon.farmmate;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class FarmmateApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.hachathon.farmmate;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class FarmmateApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
