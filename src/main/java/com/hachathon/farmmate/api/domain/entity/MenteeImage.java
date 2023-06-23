@@ -19,7 +19,7 @@ public class MenteeImage {
     @Id
     @GeneratedValue
     @Column(name = "image_id")
-    private String id;
+    private Long id;
 
     @Column(name = "image_url")
     private String imageUrl;

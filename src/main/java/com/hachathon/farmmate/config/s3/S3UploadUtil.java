@@ -63,7 +63,7 @@ public class S3UploadUtil {
     }
 
     private Optional<File> convert(MultipartFile file) throws IOException {
-        File convertFile = new File("/" + UUID.randomUUID());
+        File convertFile = new File(System.getProperty("user.home"), String.valueOf(UUID.randomUUID()));
         if (convertFile.createNewFile()) {
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
                 fos.write(file.getBytes());
