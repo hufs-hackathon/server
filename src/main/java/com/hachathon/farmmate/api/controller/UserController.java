@@ -20,7 +20,7 @@ public class UserController {
 
     @Operation(summary = "[회원가입 컨트롤러]")
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody JoinRequestDto joinRequestDto) {
+    public ResponseEntity<Long> join(@RequestBody JoinRequestDto joinRequestDto) {
         return ResponseEntity.ok().body(userService.join(joinRequestDto));
     }
 
