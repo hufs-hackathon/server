@@ -32,7 +32,7 @@ public class BoardController {
     @PostMapping("/mentor")
     public ResponseEntity<Long> registerMentorBoard(
             @RequestParam(value = "userId") Long userId,
-            @Valid @RequestPart RegisterMentorBoardRequestDto request
+            @Valid @RequestBody RegisterMentorBoardRequestDto request
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.registerMentorBoard(userId, request), HttpStatus.CREATED);

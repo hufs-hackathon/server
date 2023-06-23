@@ -37,6 +37,7 @@ public class UserService {
     @Transactional
     public Long join(JoinRequestDto joinRequestDto) {
         User user = userRepository.save(User.ofUser(joinRequestDto));
+        
         return user.getId();
     }
 
