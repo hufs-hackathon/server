@@ -1,6 +1,7 @@
 package com.hachathon.farmmate.api.controller;
 
 import com.hachathon.farmmate.api.dto.request.JoinRequestDto;
+import com.hachathon.farmmate.api.dto.request.LoginRequestDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.MypageResponseDto;
 import com.hachathon.farmmate.api.service.UserService;
@@ -17,6 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @Operation(summary = "[로그인 컨트롤러]")
+    @PostMapping("/login")
+    public ResponseEntity<Long> login(@RequestBody LoginRequestDto loginRequestDto) {
+        return ResponseEntity.ok().body(userService.login(loginRequestDto));
+    }
 
     @Operation(summary = "[회원가입 컨트롤러]")
     @PostMapping("/join")
