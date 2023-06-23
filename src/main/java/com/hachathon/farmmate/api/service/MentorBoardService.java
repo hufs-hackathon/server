@@ -75,7 +75,7 @@ public class MentorBoardService {
     @Transactional(readOnly = true)
     public GetMentorBoardDetailResponseDto getMentorBoardDetail(Long boardId) {
         MentorBoard mentorBoard = this.mentorBoardRepository.findById(boardId)
-                                                            .orElseThrow(() -> new CustomException(ErrorCode.MENTOR_BOARD_NOT_FOUND));
+                                                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POSTING));
 
         List<FaqDto> faqList = this.faqRepository.findAllByMentorBoard(mentorBoard)
                                                  .stream()

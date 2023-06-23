@@ -25,14 +25,6 @@ public class ScrapedBoard extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "mentor_board_id", nullable = true)
-    private MentorBoard mentorBoard;
-
-    @ManyToOne
-    @JoinColumn(name = "mentee_board_id", nullable = true)
-    private MenteeBoard menteeBoard;
-
-    @Column(name = "is_scraped")
-    private boolean isScraped;
+    @Column(name = "board_id", nullable = false)
+    private Long boardId;
 }

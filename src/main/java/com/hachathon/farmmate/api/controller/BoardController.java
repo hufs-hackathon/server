@@ -6,6 +6,7 @@ import com.hachathon.farmmate.api.dto.response.*;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
+import com.hachathon.farmmate.api.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class BoardController {
 
     private final MentorBoardService mentorBoardService;
     private final MenteeBoardService menteeBoardService;
+    private final UserService userService;
     private final ActivityBoardService activityBoardService;
 
     @Operation(summary = "[멘토 게시글 저장 컨트롤러]")
@@ -97,4 +99,13 @@ public class BoardController {
         return ResponseEntity.ok().body(menteeBoardService.getSpecificMenteeBoard(userId, boardId));
     }
 
+    ////////////////////////////////////////////////////////////////////////
+    @Operation(summary = "[회원 게시글 스크랩 컨트롤러]")
+    @PostMapping("/board/scrap")
+    public ResponseEntity<Boolean> scrapBoard(
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "boardId") Long boardId
+    ) {
+        return ResponseEntity.ok().body(userService.scrapBoard(userId, boardId));
+    }
 }

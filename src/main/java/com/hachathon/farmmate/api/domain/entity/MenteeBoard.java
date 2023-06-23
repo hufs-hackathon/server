@@ -26,7 +26,7 @@ public class MenteeBoard extends BaseTimeEntity {
     private String title;
 
     @Column(name = "content")
-    private String content;
+    private String introduce;
 
     @Column(name = "category")
     private String category;
