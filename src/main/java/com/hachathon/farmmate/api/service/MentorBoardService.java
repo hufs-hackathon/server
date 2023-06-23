@@ -5,7 +5,6 @@ import com.hachathon.farmmate.api.domain.entity.MentorBoard;
 import com.hachathon.farmmate.api.domain.entity.User;
 import com.hachathon.farmmate.api.domain.repository.FaqRepository;
 import com.hachathon.farmmate.api.domain.repository.MentorBoardRepository;
-import com.hachathon.farmmate.api.domain.repository.MentorImageRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.FaqDto;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 public class MentorBoardService {
 
     private final MentorBoardRepository mentorBoardRepository;
-    private final MentorImageRepository mentorImageRepository;
     private final FaqRepository faqRepository;
     private final UserRepository userRepository;
     private final S3Service s3Service;
@@ -63,8 +61,12 @@ public class MentorBoardService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetMentorBoardResponseDto> getMentorBoardList(String category) {
-        return this.mentorBoardRepository.findAllByCategory(category)
+    public List<GetMentorBoardResponseDto> getMentorBoardList(Long userId, String category) {
+
+        User user = this.userRepository.findById(userId)
+                                       .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        return this.mentorBoardRepository.findAllByUnivAndCategoryOrderByCreatedDateDesc(user.getUniv(), category)
                                          .stream()
                                          .map(GetMentorBoardResponseDto::from)
                                          .collect(Collectors.toList());

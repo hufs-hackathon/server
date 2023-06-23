@@ -37,9 +37,6 @@ public class MentorBoard extends BaseTimeEntity {
     private User user;
 
     @OneToMany(mappedBy = "mentorBoard", cascade = CascadeType.ALL)
-    private List<MentorImage> image = new ArrayList<>();
-
-    @OneToMany(mappedBy = "mentorBoard", cascade = CascadeType.ALL)
     private List<Faq> faq = new ArrayList<>();
 
 }

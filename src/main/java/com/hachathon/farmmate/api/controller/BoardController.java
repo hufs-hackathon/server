@@ -2,11 +2,7 @@ package com.hachathon.farmmate.api.controller;
 
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
-import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
-import com.hachathon.farmmate.api.dto.response.MenteeBoardsResponseDto;
-import com.hachathon.farmmate.api.dto.response.GetMentorBoardDetailResponseDto;
-import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
-import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
+import com.hachathon.farmmate.api.dto.response.*;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
@@ -53,6 +49,7 @@ public class BoardController {
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "[활동 게시글 전체 조회 컨트롤러]")
     @GetMapping("/board/all")
     public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
@@ -67,10 +64,11 @@ public class BoardController {
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
     public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+            @NotBlank @RequestParam(name = "userId") Long userId,
             @NotBlank @RequestParam(name = "category") String category
     ) {
         return new ResponseEntity<>(
-                this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
+                this.mentorBoardService.getMentorBoardList(userId, category), HttpStatus.OK);
 
     }
 
