@@ -2,6 +2,8 @@ package com.hachathon.farmmate.api.controller;
 
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
+import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
+import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,5 +46,12 @@ public class BoardController {
     ) {
         return new ResponseEntity<>(
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
+    }
+
+    private final ActivityBoardService activityBoardService;
+
+    @GetMapping("/board/all")
+    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
     }
 }
