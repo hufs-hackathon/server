@@ -7,6 +7,7 @@ import com.hachathon.farmmate.api.domain.repository.MentorBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.MentorImageRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
+import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.exception.CustomException;
 import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +50,14 @@ public class MentorBoardService {
                                             .imageUrl(imageUrl)
                                             .build())
                 .forEach(this.mentorImageRepository::save);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetMentorBoardResponseDto> getMentorBoardList(String category) {
+        return this.mentorBoardRepository.findAllByCategory(category)
+                                         .stream()
+                                         .map(GetMentorBoardResponseDto::from)
+                                         .collect(Collectors.toList());
     }
 }
 

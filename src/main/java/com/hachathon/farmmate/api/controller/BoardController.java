@@ -2,6 +2,7 @@ package com.hachathon.farmmate.api.controller;
 
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
+import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -44,5 +46,14 @@ public class BoardController {
     ) {
         return new ResponseEntity<>(
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
+    @GetMapping("/mentor/all")
+    public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+            @NotBlank @RequestParam(name = "category") String category
+    ) {
+        return new ResponseEntity<>(
+                this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
     }
 }
