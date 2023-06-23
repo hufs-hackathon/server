@@ -54,8 +54,6 @@ public class BoardController {
         return new ResponseEntity<>(
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
-
-<<<<<<<<< Temporary merge branch 1
     @GetMapping("/board/all")
     public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
         return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
@@ -64,7 +62,8 @@ public class BoardController {
     @GetMapping("/board")
     public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
         return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
-=========
+    }
+
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
     public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
@@ -72,25 +71,6 @@ public class BoardController {
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
-    }
-
-    @GetMapping("/board/all")
-    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
-        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
-    }
-
-    @GetMapping("/board")
-    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
-        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
-
-    @GetMapping("/board/all")
-    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
-        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
-    }
-
-    @GetMapping("/board")
-    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
-        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
 
     }
 }
