@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class MenteeBoardsResponseDto {
-    private Long menteeId;
+    private Long boardId;
     private Integer role;
     private String title;
     private String nickname;

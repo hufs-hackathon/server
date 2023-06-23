@@ -61,7 +61,7 @@ public class MenteeBoardService {
         for(MenteeBoard menteeBoard : menteeBoards) {
             MenteeBoardsResponseDto menteeBoardsResponseDto = MenteeBoardsResponseDto.builder()
                     .role(1)
-                    .menteeId(menteeBoard.getUser().getId())
+                    .boardId(menteeBoard.getId())
                     .title(menteeBoard.getTitle())
                     .nickname(menteeBoard.getUser().getNickname())
                     .imageUrl(menteeBoard.getUser().getImageUrl())
