@@ -6,6 +6,7 @@ import com.hachathon.farmmate.api.dto.response.*;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
+import com.hachathon.farmmate.api.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class BoardController {
 
     private final MentorBoardService mentorBoardService;
     private final MenteeBoardService menteeBoardService;
+    private final UserService userService;
     private final ActivityBoardService activityBoardService;
 
     @Operation(summary = "[멘토 게시글 저장 컨트롤러]")
@@ -63,7 +65,7 @@ public class BoardController {
 
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
-    public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+    public ResponseEntity<List<GetMentorBoardResponseDto>> getAllMentorBoards(
             @NotBlank @RequestParam(name = "userId") Long userId,
             @NotBlank @RequestParam(name = "category") String category
     ) {
@@ -74,13 +76,14 @@ public class BoardController {
 
     @Operation(summary = "[멘토 게시글 상세 조회 컨트롤러]")
     @GetMapping("/mentor/{boardId}")
-    public ResponseEntity<GetMentorBoardDetailResponseDto> getMentorBoardDetail(
+    public ResponseEntity<GetMentorBoardDetailResponseDto> getSpecificMentorBoard(
             @PathVariable(value = "boardId") Long boardId
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.getMentorBoardDetail(boardId), HttpStatus.OK);
     }
 
+    @Operation(summary = "[멘티 게시글 조회 컨트롤러]")
     @GetMapping("/mentee/all")
     public ResponseEntity<List<MenteeBoardsResponseDto>> getAllMenteeBoards(
             @RequestParam(value = "userId") Long userId,
@@ -88,6 +91,7 @@ public class BoardController {
         return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId, category));
     }
 
+    @Operation(summary = "[멘티 게시글 상세 조회 컨트롤러]")
     @GetMapping("/mentee")
     public ResponseEntity<MenteeBoardResponseDto> getSpecificMenteeBoard(
             @RequestParam(value = "boardId") Long boardId,
@@ -95,4 +99,13 @@ public class BoardController {
         return ResponseEntity.ok().body(menteeBoardService.getSpecificMenteeBoard(userId, boardId));
     }
 
+    ////////////////////////////////////////////////////////////////////////
+    @Operation(summary = "[회원 게시글 스크랩 컨트롤러]")
+    @PostMapping("/board/scrap")
+    public ResponseEntity<Boolean> scrapBoard(
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "boardId") Long boardId
+    ) {
+        return ResponseEntity.ok().body(userService.scrapBoard(userId, boardId));
+    }
 }

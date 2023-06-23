@@ -15,23 +15,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class MenteeBoard extends BaseTimeEntity {
+public class ScrapedBoard extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
-    @Column(name = "mentee_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "title", nullable = false)
-    private String title;
-
-    @Column(name = "content")
-    private String introduce;
-
-    @Column(name = "category")
-    private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "board_id", nullable = false)
+    private Long boardId;
 }

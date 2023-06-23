@@ -3,6 +3,7 @@ package com.hachathon.farmmate.api.controller;
 import com.hachathon.farmmate.api.dto.request.JoinRequestDto;
 import com.hachathon.farmmate.api.dto.request.LoginRequestDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
+import com.hachathon.farmmate.api.dto.response.MyPageScrapedResponseDto;
 import com.hachathon.farmmate.api.dto.response.MypageResponseDto;
 import com.hachathon.farmmate.api.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,5 +44,13 @@ public class UserController {
             @PathVariable(name = "userId") Long userId
     ) {
         return ResponseEntity.ok().body(userService.getMyPost(userId));
+    }
+
+    @Operation(summary = "[스크랩 저장]")
+    @GetMapping("/mypage/board/scrap")
+    public ResponseEntity<List<MyPageScrapedResponseDto>> getMyScrapResult(
+            @RequestParam(value = "userId", required = false) Long userId
+    ) {
+        return ResponseEntity.ok().body(userService.getMyScrapResult(userId));
     }
 }
