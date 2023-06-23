@@ -1,30 +1,30 @@
 package com.hachathon.farmmate.api.domain.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 @Slf4j
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class MyPage {
+public class MentorImage {
+
     @Id
     @GeneratedValue
-    private Long id;
+    @Column(name = "image_id")
+    private String id;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "image_url")
+    private String imageUrl;
 
-    @Column(name = "image")
-    private String image;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id")
+    private MentorBoard mentorBoard;
 }

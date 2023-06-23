@@ -1,5 +1,6 @@
 package com.hachathon.farmmate.api.domain.entity;
 
+import com.hachathon.farmmate.common.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,18 +15,23 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class MenteeBoard extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "mentee_id")
     private Long id;
 
-    @Column(name = "content",nullable = false)
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "content")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @Column(name = "category")
+    private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
