@@ -25,6 +25,7 @@ public class BoardController {
 
     private final MentorBoardService mentorBoardService;
     private final MenteeBoardService menteeBoardService;
+    private final ActivityBoardService activityBoardService;
 
     @Operation(summary = "[멘토 게시글 저장 컨트롤러]")
     @PostMapping("/mentor")
@@ -47,8 +48,6 @@ public class BoardController {
         return new ResponseEntity<>(
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
-
-    private final ActivityBoardService activityBoardService;
 
     @GetMapping("/board/all")
     public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
