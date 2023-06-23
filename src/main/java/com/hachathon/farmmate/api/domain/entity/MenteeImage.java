@@ -14,17 +14,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class BoardLike {
+public class MenteeImage {
 
-    @Id@GeneratedValue
-    private Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "image_id")
+    private String id;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
-
-    @Column(name = "is_liked")
-    private Boolean isLiked;
+    @JoinColumn(name = "mentee_id")
+    private MenteeBoard menteeBoard;
 }

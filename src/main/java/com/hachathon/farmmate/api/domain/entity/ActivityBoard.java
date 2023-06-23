@@ -15,9 +15,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Board extends BaseTimeEntity {
+public class ActivityBoard extends BaseTimeEntity {
     @Id
     @GeneratedValue
+    @Column(name = "activity_id")
     private Long id;
 
     @Column(name = "title", nullable = false)
@@ -27,11 +28,15 @@ public class Board extends BaseTimeEntity {
     private String content;
 
     @Column(name = "image")
-    private String image;
+    private String imageUrl;
+
+    @Column(name = "category")
+    private String category;
+
+    @Column(name = "tag")
+    private String tag;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToOne
-    private Category category;
 }
