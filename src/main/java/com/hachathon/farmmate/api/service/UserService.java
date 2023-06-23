@@ -5,6 +5,7 @@ import com.hachathon.farmmate.api.domain.repository.MenteeBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.MentorBoardRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.JoinRequestDto;
+import com.hachathon.farmmate.api.dto.request.LoginRequestDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.MypageResponseDto;
 import com.hachathon.farmmate.exception.CustomException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +24,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final MentorBoardRepository mentorBoardRepository;
     private final MenteeBoardRepository menteeBoardRepository;
+
+    public Long login(LoginRequestDto loginRequestDto) {
+        Optional<User> userCheck = userRepository.findByEmail(loginRequestDto.getEmail());
+        if (!userCheck.isEmpty()) {
+            return userCheck.get().getId();
+        } else {
+            throw new CustomException(ErrorCode.NECESSARY_JOIN);
+        }
+    }
 
     @Transactional
     public Long join(JoinRequestDto joinRequestDto) {
