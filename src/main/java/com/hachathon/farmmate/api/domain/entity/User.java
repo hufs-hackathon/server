@@ -45,6 +45,9 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MentorBoard> mentorBoard = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MenteeBoard> menteeBoard = new ArrayList<>();
+
     public static User ofUser(JoinRequestDto joinRequestDto) {
         return User.builder()
                 .email(joinRequestDto.getEmail())
