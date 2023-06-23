@@ -63,7 +63,7 @@ public class BoardController {
 
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
-    public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
+    public ResponseEntity<List<GetMentorBoardResponseDto>> getAllMentorBoards(
             @NotBlank @RequestParam(name = "userId") Long userId,
             @NotBlank @RequestParam(name = "category") String category
     ) {
@@ -74,13 +74,14 @@ public class BoardController {
 
     @Operation(summary = "[멘토 게시글 상세 조회 컨트롤러]")
     @GetMapping("/mentor/{boardId}")
-    public ResponseEntity<GetMentorBoardDetailResponseDto> getMentorBoardDetail(
+    public ResponseEntity<GetMentorBoardDetailResponseDto> getSpecificMentorBoard(
             @PathVariable(value = "boardId") Long boardId
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.getMentorBoardDetail(boardId), HttpStatus.OK);
     }
 
+    @Operation(summary = "[멘티 게시글 조회 컨트롤러]")
     @GetMapping("/mentee/all")
     public ResponseEntity<List<MenteeBoardsResponseDto>> getAllMenteeBoards(
             @RequestParam(value = "userId") Long userId,
@@ -88,6 +89,7 @@ public class BoardController {
         return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId, category));
     }
 
+    @Operation(summary = "[멘티 게시글 상세 조회 컨트롤러]")
     @GetMapping("/mentee")
     public ResponseEntity<MenteeBoardResponseDto> getSpecificMenteeBoard(
             @RequestParam(value = "boardId") Long boardId,
