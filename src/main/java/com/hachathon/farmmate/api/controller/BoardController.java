@@ -3,6 +3,9 @@ package com.hachathon.farmmate.api.controller;
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
+import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
+import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
+import com.hachathon.farmmate.api.service.ActivityBoardService;
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +28,7 @@ public class BoardController {
 
     private final MentorBoardService mentorBoardService;
     private final MenteeBoardService menteeBoardService;
+    private final ActivityBoardService activityBoardService;
 
     @Operation(summary = "[멘토 게시글 저장 컨트롤러]")
     @PostMapping("/mentor")
@@ -48,6 +52,7 @@ public class BoardController {
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
 
+
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
     public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
@@ -55,5 +60,15 @@ public class BoardController {
     ) {
         return new ResponseEntity<>(
                 this.mentorBoardService.getMentorBoardList(category), HttpStatus.OK);
+
+    @GetMapping("/board/all")
+    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
+    }
+
+    @GetMapping("/board")
+    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
+        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
+
     }
 }
