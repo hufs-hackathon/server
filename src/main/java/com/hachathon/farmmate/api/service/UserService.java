@@ -4,6 +4,8 @@ import com.hachathon.farmmate.api.domain.entity.User;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.JoinRequestDto;
 import com.hachathon.farmmate.api.dto.response.MypageResponseDto;
+import com.hachathon.farmmate.exception.CustomException;
+import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +22,7 @@ public class UserService {
     }
 
     public MypageResponseDto mypage(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 없습니다. id=" + userId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND) );
         return MypageResponseDto.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
