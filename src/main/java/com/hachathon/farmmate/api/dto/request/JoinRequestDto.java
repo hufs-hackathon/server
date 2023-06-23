@@ -14,5 +14,5 @@ public class JoinRequestDto {
     private final String nickname;
     private final String major;
     private final String univ;
-    private final String role;
+    private final Integer role;
 }

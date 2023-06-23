@@ -24,20 +24,20 @@ public class User extends BaseTimeEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "nickname",nullable = false)
+    @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "major",nullable = false)
+    @Column(name = "major", nullable = false)
     private String major;
 
-    @Column(name = "univ",nullable = false)
+    @Column(name = "univ", nullable = false)
     private String univ;
 
-    @Column(name = "role",nullable = false)
-    private String role;
+    @Column(name = "role", nullable = false)
+    private Integer role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ActivityBoard> activityBoard = new ArrayList<>();
