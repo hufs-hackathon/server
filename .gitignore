@@ -40,4 +40,4 @@ out/
 application.yml
 
 ## 키 파일 ##
-src/main/resources/firebase/farmate-android-firebase-adminsdk-itv8d-c1ac5475a8.json
+src/main/resources/farmate-android-firebase-adminsdk-itv8d-c1ac5475a8.json
