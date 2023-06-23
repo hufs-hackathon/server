@@ -86,9 +86,11 @@ public class BoardController {
         return ResponseEntity.ok().body(menteeBoardService.getAllMenteeBoards(userId, category));
     }
 
-//    @GetMapping("/mentee")
-//    public ResponseEntity<MenteeBoardResponseDto> getSpecificMenteeBoard(@RequestParam(value = "boardId") Long boardId) {
-//        return ResponseEntity.ok().body(menteeBoardService.getSpecificMenteeBoard(boardId));
-//    }
+    @GetMapping("/mentee")
+    public ResponseEntity<MenteeBoardResponseDto> getSpecificMenteeBoard(
+            @RequestParam(value = "boardId") Long boardId,
+            @RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok().body(menteeBoardService.getSpecificMenteeBoard(userId, boardId));
+    }
 
 }

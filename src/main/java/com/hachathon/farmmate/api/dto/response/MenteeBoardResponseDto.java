@@ -18,10 +18,8 @@ public class MenteeBoardResponseDto {
     private String category;
     private Long menteeId;
     private Long boardId;
-    private String tag;
     private String nickname;
     private String email;
     private String imageUrl;
     private String major;
-
 }
