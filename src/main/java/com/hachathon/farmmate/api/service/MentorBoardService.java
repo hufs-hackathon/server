@@ -81,6 +81,7 @@ public class MentorBoardService {
                                                  .collect(Collectors.toList());
 
         return GetMentorBoardDetailResponseDto.builder()
+                                              .boardId(mentorBoard.getId())
                                               .title(mentorBoard.getTitle())
                                               .nickname(mentorBoard.getUser().getNickname())
                                               .introduce(mentorBoard.getIntroduce())
@@ -90,8 +91,6 @@ public class MentorBoardService {
                                               .faqList(faqList)
                                               .category(mentorBoard.getCategory())
                                               .build();
-
-
     }
 }
 

@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class GetMentorBoardDetailResponseDto {
 
+    private Long boardId;
+
     private String title;
 
     private String nickname;
