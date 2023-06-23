@@ -2,10 +2,13 @@ package com.hachathon.farmmate.api.controller;
 
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.request.RegisterMentorBoardRequestDto;
+<<<<<<<<< Temporary merge branch 1
 import com.hachathon.farmmate.api.dto.response.ActivityBoardsResponseDto;
-import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
 import com.hachathon.farmmate.api.dto.response.SpecificActivityBoardResponseDto;
 import com.hachathon.farmmate.api.service.ActivityBoardService;
+=========
+import com.hachathon.farmmate.api.dto.response.GetMentorBoardResponseDto;
+>>>>>>>>> Temporary merge branch 2
 import com.hachathon.farmmate.api.service.MenteeBoardService;
 import com.hachathon.farmmate.api.service.MentorBoardService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,6 +55,16 @@ public class BoardController {
                 this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
     }
 
+<<<<<<<<< Temporary merge branch 1
+    @GetMapping("/board/all")
+    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
+    }
+
+    @GetMapping("/board")
+    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
+        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
+=========
     @Operation(summary = "[멘토 게시글 조회 컨트롤러]")
     @GetMapping("/mentor/all")
     public ResponseEntity<List<GetMentorBoardResponseDto>> getMentorBoardList(
@@ -69,5 +82,15 @@ public class BoardController {
     @GetMapping("/board")
     public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
         return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
+
+    @GetMapping("/board/all")
+    public ResponseEntity<List<ActivityBoardsResponseDto>> getAllActivityBoards(@RequestParam(value = "userId") Long userId) {
+        return ResponseEntity.ok().body(activityBoardService.getAllActivityBoards(userId));
+    }
+
+    @GetMapping("/board")
+    public ResponseEntity<SpecificActivityBoardResponseDto> getSpecificActivityBoard(@RequestParam(value = "boardId") Long boardId) {
+        return ResponseEntity.ok().body(activityBoardService.getSpecificActivityBoard(boardId));
+
     }
 }
