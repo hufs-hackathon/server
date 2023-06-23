@@ -38,7 +38,7 @@ public class MenteeBoardService {
         MenteeBoard menteeBoard = this.menteeBoardRepository.save(
                 MenteeBoard.builder()
                            .title(request.getTitle())
-                           .content(request.getContent())
+                           .introduce(request.getContent())
                            .category(request.getCategory())
                            .user(user)
                            .build()
