@@ -11,6 +11,7 @@ import com.hachathon.farmmate.exception.CustomException;
 import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,9 +23,10 @@ public class UserService {
     private final MentorBoardRepository mentorBoardRepository;
     private final MenteeBoardRepository menteeBoardRepository;
 
-    public String join(JoinRequestDto joinRequestDto) {
-        userRepository.save(User.ofUser(joinRequestDto));
-        return "회원가입 되었습니다.";
+    @Transactional
+    public Long join(JoinRequestDto joinRequestDto) {
+        User user = userRepository.save(User.ofUser(joinRequestDto));
+        return user.getId();
     }
 
     public MypageResponseDto mypage(Long userId) {
