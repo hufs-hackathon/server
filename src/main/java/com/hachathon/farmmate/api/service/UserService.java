@@ -37,7 +37,7 @@ public class UserService {
         if (!userCheck.isEmpty()) {
             return userCheck.get().getId();
         } else {
-            throw new CustomException(ErrorCode.NECESSARY_JOIN);
+            return 0L;
         }
     }
 

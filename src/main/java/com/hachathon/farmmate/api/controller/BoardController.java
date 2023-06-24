@@ -44,11 +44,10 @@ public class BoardController {
     @PostMapping("/mentee")
     public ResponseEntity<Long> registerMenteeBoard(
             @RequestParam(value = "userId") Long userId,
-            @Valid @RequestPart RegisterMenteeBoardRequestDto request,
-            @RequestPart List<MultipartFile> s3Images
+            @Valid @RequestPart RegisterMenteeBoardRequestDto request
     ) {
         return new ResponseEntity<>(
-                this.menteeBoardService.registerMenteeBoard(userId, request, s3Images), HttpStatus.CREATED);
+                this.menteeBoardService.registerMenteeBoard(userId, request), HttpStatus.CREATED);
     }
 
     @Operation(summary = "[활동 게시글 전체 조회 컨트롤러]")

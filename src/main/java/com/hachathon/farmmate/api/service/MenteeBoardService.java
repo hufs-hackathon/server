@@ -1,10 +1,8 @@
 package com.hachathon.farmmate.api.service;
 
 import com.hachathon.farmmate.api.domain.entity.MenteeBoard;
-import com.hachathon.farmmate.api.domain.entity.MenteeImage;
 import com.hachathon.farmmate.api.domain.entity.User;
 import com.hachathon.farmmate.api.domain.repository.MenteeBoardRepository;
-import com.hachathon.farmmate.api.domain.repository.MenteeImageRepository;
 import com.hachathon.farmmate.api.domain.repository.UserRepository;
 import com.hachathon.farmmate.api.dto.request.RegisterMenteeBoardRequestDto;
 import com.hachathon.farmmate.api.dto.response.MenteeBoardResponseDto;
@@ -14,7 +12,6 @@ import com.hachathon.farmmate.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +22,10 @@ import java.util.stream.Collectors;
 public class MenteeBoardService {
 
     private final MenteeBoardRepository menteeBoardRepository;
-    private final MenteeImageRepository menteeImageRepository;
     private final UserRepository userRepository;
-    private final S3Service s3Service;
 
     @Transactional
-    public Long registerMenteeBoard(Long userId, RegisterMenteeBoardRequestDto request, List<MultipartFile> s3Images) {
+    public Long registerMenteeBoard(Long userId, RegisterMenteeBoardRequestDto request) {
 
         User user = this.userRepository.findById(userId)
                                        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -43,14 +38,6 @@ public class MenteeBoardService {
                            .user(user)
                            .build()
         );
-
-        s3Images.stream()
-                .map(s3Service::uploadImage)
-                .map(imageUrl -> MenteeImage.builder()
-                                            .menteeBoard(menteeBoard)
-                                            .imageUrl(imageUrl)
-                                            .build())
-                .forEach(this.menteeImageRepository::save);
 
         return menteeBoard.getId();
     }
@@ -79,7 +66,6 @@ public class MenteeBoardService {
     public MenteeBoardResponseDto getSpecificMenteeBoard(Long userId, Long boardId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         MenteeBoard menteeBoard = menteeBoardRepository.findById(boardId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POSTING));
-        List<MenteeImage> menteeImage = menteeImageRepository.findByMenteeBoard(menteeBoard);
         return MenteeBoardResponseDto.builder()
                                      .boardId(menteeBoard.getId())
                                      .title(menteeBoard.getTitle())
@@ -90,8 +76,6 @@ public class MenteeBoardService {
                                      .email(menteeBoard.getUser().getEmail())
                                      .imageUrl(menteeBoard.getUser().getImageUrl())
                                      .major(menteeBoard.getUser().getMajor())
-                                     .imageUrlList(menteeImage.stream()
-                                                              .map(MenteeImage::getImageUrl).collect(Collectors.toList()))
                                      .build();
     }
 

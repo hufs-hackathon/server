@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MentorBoardRepository extends JpaRepository<MentorBoard, Long> {
-    @Query("SELECT m FROM MentorBoard m INNER JOIN User u on u.univ = :univ and m.category = :category ORDER BY  m.createdDate DESC")
+    @Query("SELECT DISTINCT m FROM MentorBoard m INNER JOIN User u on u.univ = :univ and m.category = :category ORDER BY  m.createdDate DESC")
     List<MentorBoard> findAllByUnivAndCategoryOrderByCreatedDateDesc(@Param("univ") String univ, @Param("category") String category);
 
     List<MentorBoard> findAllByUser(User user);
